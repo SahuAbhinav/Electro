@@ -39,7 +39,7 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Product> search(@Valid @RequestBody ProductListBean bean) {
+	public @ResponseBody Map<String, Object> search(@Valid @RequestBody ProductListBean bean) {
 		return this.service.search(bean);
 		
 	}

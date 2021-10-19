@@ -54,9 +54,14 @@ public class ProductService {
 		return response;
 	}
 
-	public List<Product> search(ProductListBean bean) {
+	public Map<String, Object> search(ProductListBean bean) {
 
-		return this.productRepository.search(bean.getName());
+		
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("data", this.populateProductList(this.productRepository.search(bean.getSearchKeyword())));
+
+		return response;
+
 	}
 
 	private Product populateProductBean(ProductBean bean) {

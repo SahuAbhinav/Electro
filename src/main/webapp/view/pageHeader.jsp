@@ -35,13 +35,13 @@
 				<!-- SEARCH BAR -->
 				<div class="col-md-6">
 					<div class="header-search">
-						<form>
+						<form onsubmit="return false;">
 							<select class="input-select">
 								<option value="0">All Categories</option>
 								<option value="1">Category 01</option>
 								<option value="1">Category 02</option>
-							</select> <input class="input" placeholder="Search here">
-							<button class="search-btn">Search</button>
+							</select> <input class="input" placeholder="Search here" id= "search_string">
+							<button class="search-btn" id= "search_product">Search</button>
 						</form>
 					</div>
 				</div>

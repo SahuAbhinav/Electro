@@ -35,6 +35,7 @@ HOME.RENDER_SLICK = function() { // Products Slick
 }
 HOME.RENDER_NEW_PRODUCT = function(data) {
 
+console.log(data);
     let template1 = $("#newProductList").html();
 
     $("#tab1").find('.products-slick').html(_.template(template1)({
@@ -123,13 +124,42 @@ HOME.LOAD_NEW_PRODUCT = function() {
     });
 
 
+};
+HOME.SEARCH_PRODUCT = function() {
+
+    var request = AJAX.post("item/search",{searchKeyword: $('#search_string').val()}, function(res) {
+        console.log(res);
+        HOME.RENDER_NEW_PRODUCT(res.data);
+        HOME.RENDER_TOP_PRODUCT(res.data);
+        HOME.RENDER_TOP_SELLING_PRODUCT(res.data);
+
+ slickRender();
+    });
+
+
+};
+
+
+
+
+HOME.BIND_EVENT = function(){
+ 
+    $('#search_product').click(function() {
+        alert("Hello");
+        HOME.SEARCH_PRODUCT();
+    });
+
+
+
 }
+
 
 
 HOME.init = function() {
     console.log('init');
     HOME.LOAD_NEW_PRODUCT();
     HOME.DEAL_COUNDOWN();
+    HOME.BIND_EVENT();
 
 
 
