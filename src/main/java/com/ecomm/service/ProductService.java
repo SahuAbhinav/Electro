@@ -56,9 +56,17 @@ public class ProductService {
 
 	public Map<String, Object> search(ProductListBean bean) {
 
-		
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("data", this.populateProductList(this.productRepository.search(bean.getSearchKeyword())));
+
+		return response;
+
+	}
+
+	public Map<String, Object> findByCategory(ProductListBean bean) {
+
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("data", this.populateProductList(this.productRepository.findByCategory(bean.getSearchKeyword())));
 
 		return response;
 
@@ -87,14 +95,13 @@ public class ProductService {
 			bean.setDiscountPercent(product.getDiscountPercent());
 			bean.setName(product.getName());
 			bean.setPrice(product.getPrice());
-			
-			List<Images> images= this.imagesRepository.findByProductIdOrderByOrdersAsc(product.getId());
+
+			List<Images> images = this.imagesRepository.findByProductIdOrderByOrdersAsc(product.getId());
 			List<String> imageNames = new ArrayList<String>();
 			for (Images image : images) {
 				imageNames.add(image.getImageLocation());
 			}
 			bean.setImageLocation(imageNames);
-			
 
 			response.add(bean);
 		}

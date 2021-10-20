@@ -1,6 +1,6 @@
 
 
-var slickRender = function(){
+var slickRender = function($el){
 	
 
 	// Mobile Nav toggle
@@ -17,7 +17,7 @@ var slickRender = function(){
 	/////////////////////////////////////////
 
 	// Products Slick
-	$('.products-slick').each(function() {
+	$el.find('.products-slick').each(function() {
 	
 		var $this = $(this),
 				$nav = $this.attr('data-nav');
@@ -50,7 +50,7 @@ var slickRender = function(){
 	});
 
 	// Products Widget Slick
-	$('.products-widget-slick').each(function() {
+	$('.products-widget-slick1').each(function() {
 	console.log($(this));
 		var $this = $(this),
 				$nav = $this.attr('data-nav');

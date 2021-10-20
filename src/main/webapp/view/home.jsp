@@ -99,7 +99,7 @@ _.each(products, function (product){
 @>
 	<div class="product">
 		<div class="product-img">
-			<img src="./img/<@=product.imageLocation[0] @>" alt="">
+			<img src="./img/<@=nullIfDefaultImage(product.imageLocation[0]) @>" alt="">
 			<div class="product-label">
 				<span class="sale">-<@=product.discountPercent@>%</span>
 				<span class="new">NEW</span>
@@ -144,10 +144,10 @@ _.each(products, function (product){
 							<h3 class="title">New Products</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab1" data-type="Laptops">Laptops</a></li>
+									<li><a data-toggle="tab" href="#tab2" data-type="Smartphones">Smartphones</a></li>
+									<li><a data-toggle="tab" href="#tab3" data-type="Cameras">Cameras</a></li>
+									<li><a data-toggle="tab" href="#tab4" data-type="Accessories">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -165,6 +165,33 @@ _.each(products, function (product){
 										
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+								<!-- tab -->
+								<div id="tab2" class="tab-pane">
+									<div class="products-slick" data-nav="#slick-nav-2">
+										<!-- newProductList 2 template would be here -->
+										
+									</div>
+									<div id="slick-nav-2" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+								<!-- tab -->
+								<div id="tab3" class="tab-pane">
+									<div class="products-slick" data-nav="#slick-nav-3">
+										<!-- newProductList 3 template would be here -->
+										
+									</div>
+									<div id="slick-nav-3" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+								<!-- tab -->
+								<div id="tab4" class="tab-pane">
+									<div class="products-slick" data-nav="#slick-nav-4">
+										<!-- newProductList 4 template would be here -->
+										
+									</div>
+									<div id="slick-nav-4" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>
@@ -201,107 +228,6 @@ _.each(products, function (product){
 		</div>
 		<!-- /HOT DEAL SECTION -->
 
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-
-					<!-- section title -->
-					<div class="col-md-12">
-						<div class="section-title">
-							<h3 class="title">Top selling</h3>
-							<div class="section-nav">
-								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /section title -->
-
-					<!-- Products tab & slick -->
-					<div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
-								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
-										<!-- newProductList template would be here -->
-										
-									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
-								</div>
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
-					<!-- /Products tab & slick -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
-
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container" id="topSellingContainer">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">Top selling</h4>
-							<div class="section-nav">
-								<div id="slick-nav-3" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" id="selling1" data-nav="#slick-nav-3">
-								<!-- topProductList template would be here  -->
-							
-						</div>
-					</div>
-
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">Top selling</h4>
-							<div class="section-nav">
-								<div id="slick-nav-4" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" id="selling2" data-nav="#slick-nav-4">
-							<!-- topProductList template would be here  -->
-						</div>
-					</div>
-
-					<div class="clearfix visible-sm visible-xs"></div>
-
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">Top selling</h4>
-							<div class="section-nav">
-								<div id="slick-nav-5" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" id="selling3" data-nav="#slick-nav-5">
-							<!-- topProductList template would be here  -->
-						</div>
-					</div>
-
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
 
 <noscript type="text/x-template" id='topSellProductList'>
 	<div>
@@ -309,7 +235,7 @@ _.each(products, function (product){
 
 		<div class="product-widget">
 			<div class="product-img">
-				<img src="./img/<@=product.imageLocation[0] @>" alt="">
+				<img src="./img/<@=nullIfDefaultImage(product.imageLocation[0]) @>" alt="">
 			</div>
 			<div class="product-body">
 				<p class="product-category"><@=product.category@></p>

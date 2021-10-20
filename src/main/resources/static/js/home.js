@@ -1,81 +1,35 @@
 var HOME = HOME || {}
-
-HOME.RENDER_SLICK = function() { // Products Slick
-    $('.products-slick').each(function() {
-        var $this = $(this),
-            $nav = $this.attr('data-nav');
-
-        $this.slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            infinite: true,
-            speed: 300,
-            dots: false,
-            arrows: true,
-            appendArrows: $nav ? $nav : false,
-            responsive: [{
-                    breakpoint: 991,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1,
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                    }
-                },
-            ]
-        });
-    });
+HOME.LAPTOPS_CATEGORY='Laptops';
+HOME.SMARTPHONES_CATEGORY='Smartphones';
+HOME.CAMERAS_CATEGORY='Cameras';
+HOME.ACCESSORIES_CATEGORY='Accessories';
+HOME.DATA = {
 
 }
-HOME.RENDER_NEW_PRODUCT = function(data) {
 
-console.log(data);
+HOME.DEFAULT_CATEGORY=HOME.LAPTOPS_CATEGORY;
+
+HOME.RENDER_NEW_PRODUCT = function(data, type) {
+
+    console.log(data);
+    let el = '#tab4';
     let template1 = $("#newProductList").html();
-
-    $("#tab1").find('.products-slick').html(_.template(template1)({
+	
+	if(type==HOME.LAPTOPS_CATEGORY){
+		el = '#tab1';
+	}else if(type==HOME.SMARTPHONES_CATEGORY){
+		el = '#tab2';
+	}else if(type==HOME.CAMERAS_CATEGORY){
+		el = '#tab3';
+	}
+    $(el).find('.products-slick').html(_.template(template1)({
         products: data
     }));
-
     
+    slickRender($(el));
+
+
 }
-
-HOME.RENDER_TOP_PRODUCT = function(data) {
-
-    let template1 = $("#newProductList").html();
-
-    $("#tab2").find('.products-slick').html(_.template(template1)({
-        products: data
-    }));
-
-   
-};
-
-HOME.RENDER_TOP_SELLING_PRODUCT = function(data) {
-
-    let template1 = $("#topSellProductList").html();
-
-    $("#topSellingContainer").find('#selling1').html(_.template(template1)({
-        products: data
-    }));
-    
-    $("#topSellingContainer").find('#selling2').html(_.template(template1)({
-        products: data
-    }));
-    
-    $("#topSellingContainer").find('#selling3').html(_.template(template1)({
-        products: data
-    }));
-
-   
-};
-
-
 
 
 HOME.DEAL_COUNDOWN = function() {
@@ -112,28 +66,43 @@ HOME.DEAL_COUNDOWN = function() {
     }, 1000);
 
 }
-HOME.LOAD_NEW_PRODUCT = function() {
+HOME._LOAD_NEW_PRODUCT = function() {
 
     var request = AJAX.get("item/getAll", function(res) {
         console.log(res);
-        HOME.RENDER_NEW_PRODUCT(res.data);
-        HOME.RENDER_TOP_PRODUCT(res.data);
-        HOME.RENDER_TOP_SELLING_PRODUCT(res.data);
+        let items = res.data;
+        HOME.RENDER_NEW_PRODUCT(items);
+        HOME.RENDER_TOP_PRODUCT(items);
+        HOME.RENDER_TOP_SELLING_PRODUCT(items.slice(0, 3));
 
- slickRender();
+        slickRender($('body'));
     });
 
+};
+
+HOME.LOAD_NEW_PRODUCT = function(category) {
+
+if(!HOME.DATA[category]){
+    var request = AJAX.post("item/findByCategory", { searchKeyword: category },function(res) {
+        console.log(res);
+        let items = res.data;
+        HOME.RENDER_NEW_PRODUCT(items, category);
+        HOME.DATA[category] = items;
+
+        
+    });
+    }
 
 };
 HOME.SEARCH_PRODUCT = function() {
 
-    var request = AJAX.post("item/search",{searchKeyword: $('#search_string').val()}, function(res) {
+    var request = AJAX.post("item/search", {
+        searchKeyword: $('#search_string').val()
+    }, function(res) {
         console.log(res);
         HOME.RENDER_NEW_PRODUCT(res.data);
-        HOME.RENDER_TOP_PRODUCT(res.data);
-        HOME.RENDER_TOP_SELLING_PRODUCT(res.data);
 
- slickRender();
+        slickRender($('body'));
     });
 
 
@@ -142,12 +111,19 @@ HOME.SEARCH_PRODUCT = function() {
 
 
 
-HOME.BIND_EVENT = function(){
- 
+HOME.BIND_EVENT = function() {
+
     $('#search_product').click(function() {
-        alert("Hello");
+        //alert("Hello");
         HOME.SEARCH_PRODUCT();
     });
+    
+    $('[data-toggle="tab"]').click(function (e) {
+  console.log(e);
+  let category = $(this).attr('data-type');
+  
+  HOME.LOAD_NEW_PRODUCT(category);
+});
 
 
 
@@ -157,7 +133,7 @@ HOME.BIND_EVENT = function(){
 
 HOME.init = function() {
     console.log('init');
-    HOME.LOAD_NEW_PRODUCT();
+    HOME.LOAD_NEW_PRODUCT(HOME.DEFAULT_CATEGORY);
     HOME.DEAL_COUNDOWN();
     HOME.BIND_EVENT();
 

@@ -10,8 +10,7 @@
 				<div class="col-md-3 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">About Us</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut.</p>
+						<p>Electro pvt. ltd.</p>
 						<ul class="footer-links">
 							<li><a href="#"><i class="fa fa-map-marker"></i>1734
 									Stonecoal Road</a></li>
@@ -82,13 +81,11 @@
 						<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
 						<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 					</ul>
-					<span class="copyright"> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					<span class="copyright"> 
 						Copyright &copy;<script>
 							document.write(new Date().getFullYear());
 						</script>
-						All rights reserved | This template is made with <i
-						class="fa fa-heart-o" aria-hidden="true"></i> by <a
-						href="https://colorlib.com" target="_blank">Colorlib</a> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						All rights reserved 
 					</span>
 				</div>
 			</div>

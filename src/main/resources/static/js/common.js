@@ -40,6 +40,17 @@ var AJAX = {
 
 var calculateFinalPrice = function(price, discountPercentage) {
 
-	return price * ( (100-discountPercentage) / 100 );
+	return Math.round(price * ( (100-discountPercentage) / 100 ));
 
-};	 	
+};	 
+
+
+var nullIfDefaultImage = function(url){
+console.log(url);
+ 	if(url == null || url.length==0){
+ 		return 'default-image.png';
+ 
+ }else{
+ 	return url;
+ }
+};

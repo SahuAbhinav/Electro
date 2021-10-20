@@ -44,4 +44,10 @@ public class ProductController {
 		
 	}
 
+	@PostMapping(value = "findByCategory", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Map<String, Object> findByCategory(@Valid @RequestBody ProductListBean bean) {
+		return this.service.findByCategory(bean);
+		
+	}
+	
 }
