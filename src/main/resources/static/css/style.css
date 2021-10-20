@@ -2188,3 +2188,19 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+.img1 {
+	height:250px;
+	width: auto;
+    max-width: 300px;
+    
+    
+}
+
+.item1 {
+    /*width: 120px;*/
+    height: 300px;
+    margin: 3px;
+    padding: 3px;
+    overflow: hidden;
+}

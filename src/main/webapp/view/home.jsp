@@ -98,8 +98,8 @@ _.each(products, function (product){
 
 @>
 	<div class="product">
-		<div class="product-img">
-			<img src="./img/<@=nullIfDefaultImage(product.imageLocation[0]) @>" alt="">
+		<div class="product-img item">
+			<img class="img1" src="./img/<@=nullIfDefaultImage(product.imageLocation[0]) @>" alt="">
 			<div class="product-label">
 				<span class="sale">-<@=product.discountPercent@>%</span>
 				<span class="new">NEW</span>

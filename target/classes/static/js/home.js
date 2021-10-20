@@ -34,7 +34,7 @@ HOME.RENDER_NEW_PRODUCT = function(data, type) {
 
 HOME.DEAL_COUNDOWN = function() {
     // Set the date we're counting down to
-    var countDownDate = new Date("Oct 25, 2021 00:00:00").getTime();
+    var countDownDate = new Date("Nov 25, 2021 00:00:00").getTime();
 
     // Update the count down every 1 second
     var x = setInterval(function() {
