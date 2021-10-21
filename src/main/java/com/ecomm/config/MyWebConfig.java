@@ -39,6 +39,7 @@ public class MyWebConfig implements WebMvcConfigurer{
 
 	        registry.addViewController("/").setViewName("home");
 	        registry.addViewController("product").setViewName("product");
+	        registry.addViewController("store").setViewName("store");
 	
 	 }
 	
