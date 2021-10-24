@@ -50,4 +50,10 @@ public class ProductController {
 		
 	}
 	
+	@PostMapping(value = "get", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ProductBean get(@Valid @RequestBody ProductBean bean) {
+		return this.service.get(bean);
+		
+	}
+	
 }

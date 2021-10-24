@@ -105,7 +105,7 @@ var slickRender = function($el){
 	}
 
 	/////////////////////////////////////////
-
+/*
 	// Input number
 	$('.input-number').each(function() {
 		var $this = $(this),
@@ -129,7 +129,7 @@ var slickRender = function($el){
 		})
 	});
 
-/*
+
 	var priceInputMax = document.getElementById('price-max'),
 			priceInputMin = document.getElementById('price-min');
 

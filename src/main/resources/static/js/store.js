@@ -3,6 +3,16 @@ STORE.LAPTOPS_CATEGORY = 'Laptops';
 STORE.SMARTPHONES_CATEGORY = 'Smartphones';
 STORE.CAMERAS_CATEGORY = 'Cameras';
 STORE.ACCESSORIES_CATEGORY = 'Accessories';
+STORE.CART_LIST = [];
+STORE.CART_ITEM = {
+	id : null,
+	name : null,
+	quantity : 0,
+	price : 0,
+	imageLocation : null
+	
+};
+
 STORE.DATA = {
 
 }
@@ -27,43 +37,78 @@ STORE.RENDER_NEW_PRODUCT = function(data, type) {
     }));
 
     slickRender($(el));
+     STORE.BIND_EVENT();
+    
 
 
 }
 
+STORE.updatePriceSlider = function(elem , value) {
+		if ( elem.hasClass('price-min') ) {
+			console.log('min')
+			priceSlider.noUiSlider.set([value, null]);
+		} else if ( elem.hasClass('price-max')) {
+			console.log('max')
+			priceSlider.noUiSlider.set([null, value]);
+		}
+	}
 
 STORE.DEAL_COUNDOWN = function() {
-    // Set the date we're counting down to
-    var countDownDate = new Date("Oct 25, 2021 00:00:00").getTime();
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
+	// Input number
+	$('.input-number').each(function() {
+		var $this = $(this),
+		$input = $this.find('input[type="number"]'),
+		up = $this.find('.qty-up'),
+		down = $this.find('.qty-down');
 
-        // Get today's date and time
-        var now = new Date().getTime();
+		down.on('click', function () {
+			var value = parseInt($input.val()) - 1;
+			value = value < 1 ? 1 : value;
+			$input.val(value);
+			$input.change();
+			STORE.updatePriceSlider($this , value)
+		})
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+		up.on('click', function () {
+			var value = parseInt($input.val()) + 1;
+			$input.val(value);
+			$input.change();
+			STORE.updatePriceSlider($this , value)
+		})
+	});
+	
+	var priceInputMax = document.getElementById('price-max'),
+			priceInputMin = document.getElementById('price-min');
 
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	priceInputMax.addEventListener('change', function(){
+		STORE.updatePriceSlider($(this).parent() , this.value)
+	});
 
-        // Display the result in the element with id="demo"
+	priceInputMin.addEventListener('change', function(){
+		STORE.updatePriceSlider($(this).parent() , this.value)
+	});
 
+	
 
-        let html = "<li><div><h3>" + days + "</h3><span>Days</span></div></li><li><div><h3>" + hours + "</h3><span>Hours</span></div></li><li><div><h3>" + minutes + "</h3><span>Mins</span></div></li><li><div><h3>" + seconds + "</h3><span>Secs</span></div></li>";
+	// Price Slider
+	var priceSlider = document.getElementById('price-slider');
+	if (priceSlider) {
+		noUiSlider.create(priceSlider, {
+			start: [1, 999],
+			connect: true,
+			step: 1,
+			range: {
+				'min': 1,
+				'max': 999
+			}
+		});
 
-        $('#hot-deal').find('.hot-deal-countdown').html(html);
-
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
-        }
-    }, 1000);
+		priceSlider.noUiSlider.on('update', function( values, handle ) {
+			var value = values[handle];
+			handle ? priceInputMax.value = value : priceInputMin.value = value
+		});
+	}
 
 }
 STORE._LOAD_NEW_PRODUCT = function() {
@@ -96,10 +141,11 @@ STORE.LOAD_NEW_PRODUCT = function(category) {
     }
 
 };
-STORE.SEARCH_PRODUCT = function() {
+STORE.SEARCH_PRODUCT = function(searchKeyword, category) {
 
     var request = AJAX.post("item/search", {
-        searchKeyword: $('#search_string').val()
+        searchKeyword: searchKeyword,
+        category : category
     }, function(res) {
         console.log(res);
         STORE.RENDER_NEW_PRODUCT(res.data);
@@ -110,12 +156,45 @@ STORE.SEARCH_PRODUCT = function() {
 
 };
 
+STORE.ADD_TO_CART = function(el) {
+
+let jsonData= el.attr('data-json');
+console.log(jsonData);
+let itemJson = JSON.parse(jsonData);
+itemJson.quantity = 1;
+console.log(itemJson);
+
+let retrievedData =localStorage.getItem('cart') || "[]";
+
+console.log(itemJson);
+
+let carts = JSON.parse(retrievedData);
+
+let oldLength = carts.length;
+
+console.log(carts);
+carts.push(itemJson);
+
+carts =_.uniq(carts, 'id');
+
+if(oldLength == carts.length){
+alert('Item already in cart');
+
+return;
+}
+
+localStorage.setItem("cart", JSON.stringify(carts));
+alert('Item added in cart');
+console.log(localStorage.getItem('cart'));
+PAGE_HEADER.UPDATE_CART_COUNT();
+
+}
 
 STORE.BIND_EVENT = function() {
 
     $('#search_product').click(function() {
         //alert("Hello");
-        STORE.SEARCH_PRODUCT();
+        STORE.SEARCH_PRODUCT($('#search_string').val(), $('.input-select').val());
     });
 
     $('[data-toggle="tab"]').click(function(e) {
@@ -125,6 +204,11 @@ STORE.BIND_EVENT = function() {
         STORE.LOAD_NEW_PRODUCT(category);
     });
 
+    $('.add-to-cart-btn').click(function(e) {
+        console.log(e);
+        
+        STORE.ADD_TO_CART(($(this)));
+    });
 
 
 }
@@ -150,11 +234,9 @@ $(document).ready(function() {
     const searchKeyword = urlParams.get('searchKeyword');
 
     console.log(category);
-    if (category != null) {
-        STORE.LOAD_NEW_PRODUCT(category);
-    } else if (searchKeyword != null) {
+    
         $('#search_string').val(searchKeyword);
-        STORE.SEARCH_PRODUCT();
-    }
+        $('.input-select').val(category).change();
+        STORE.SEARCH_PRODUCT(searchKeyword, category);
 
 });

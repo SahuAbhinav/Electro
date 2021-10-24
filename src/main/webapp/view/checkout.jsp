@@ -179,11 +179,11 @@
 							<div class="order-products">
 								<div class="order-col">
 									<div>1x Product Name Goes Here</div>
-									<div>$980.00</div>
+									<div>RS. 50,000.00</div>
 								</div>
 								<div class="order-col">
 									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
+									<div>RS. 50,000.00</div>
 								</div>
 							</div>
 							<div class="order-col">
@@ -192,7 +192,7 @@
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><strong class="order-total">1,00,000.00</strong></div>
 							</div>
 						</div>
 						<div class="payment-method">

@@ -25,6 +25,13 @@ public class ProductService {
 
 	@Autowired
 	private ImagesRepository imagesRepository;
+	
+	public ProductBean get(ProductBean bean) {
+		
+		
+		return this.populateProductBean(this.productRepository.getById(bean.getId()));
+		
+	}
 
 	public void saveProduct(ProductBean productBean) {
 
@@ -57,7 +64,20 @@ public class ProductService {
 	public Map<String, Object> search(ProductListBean bean) {
 
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("data", this.populateProductList(this.productRepository.search(bean.getSearchKeyword())));
+		List<Product> products = null;
+		if(bean.getCategory()!=null && !bean.getCategory().isBlank() && bean.getSearchKeyword()!=null && !bean.getSearchKeyword().isBlank()) {
+			products = this.productRepository.searchWithCategory(bean.getSearchKeyword(), bean.getCategory());
+			
+			
+		}else if(bean.getSearchKeyword()!=null && !bean.getSearchKeyword().isBlank()){
+			
+			products = this.productRepository.search(bean.getSearchKeyword());
+		}else {
+			
+			products = this.productRepository.findByCategory(bean.getCategory());
+		}
+		
+		response.put("data", this.populateProductList(products));
 
 		return response;
 
@@ -89,23 +109,32 @@ public class ProductService {
 		List<ProductBean> response = new ArrayList<ProductBean>();
 		for (Product product : beans) {
 
-			ProductBean bean = new ProductBean();
-			bean.setCategory(product.getCategory());
-			bean.setDescription(product.getDescription());
-			bean.setDiscountPercent(product.getDiscountPercent());
-			bean.setName(product.getName());
-			bean.setPrice(product.getPrice());
-
-			List<Images> images = this.imagesRepository.findByProductIdOrderByOrdersAsc(product.getId());
-			List<String> imageNames = new ArrayList<String>();
-			for (Images image : images) {
-				imageNames.add(image.getImageLocation());
-			}
-			bean.setImageLocation(imageNames);
-
-			response.add(bean);
+			response.add(this.populateProductBean(product));
 		}
 
 		return response;
+	}
+	
+	private ProductBean populateProductBean(Product product) {
+		
+
+		ProductBean bean = new ProductBean();
+		bean.setId(product.getId());
+		bean.setCategory(product.getCategory());
+		bean.setDescription(product.getDescription());
+		bean.setDiscountPercent(product.getDiscountPercent());
+		bean.setName(product.getName());
+		bean.setPrice(product.getPrice());
+
+		List<Images> images = this.imagesRepository.findByProductIdOrderByOrdersAsc(product.getId());
+		List<String> imageNames = new ArrayList<String>();
+		for (Images image : images) {
+			imageNames.add(image.getImageLocation());
+		}
+		bean.setImageLocation(imageNames);
+
+		return bean;
+		
+		
 	}
 }

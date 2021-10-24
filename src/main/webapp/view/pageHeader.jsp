@@ -37,9 +37,11 @@
 					<div class="header-search">
 						<form onsubmit="return false;">
 							<select class="input-select">
-								<option value="0">All Categories</option>
-								<option value="1">Category 01</option>
-								<option value="1">Category 02</option>
+								<option value="">All Categories</option>
+								<option value="Laptops">Laptops</option>
+								<option value="Smartphones">Smartphones</option>
+								<option value="Cameras">Cameras</option>
+								<option value="Accessories">Accessories</option>
 							</select> <input class="input" placeholder="Search here" id= "search_string">
 							<button class="search-btn" id= "search_product">Search</button>
 						</form>
@@ -60,7 +62,7 @@
 						<!-- /Wishlist -->
 
 						<!-- Cart -->
-						<div class="dropdown">
+						<div class="dropdown" id="cartDiv">
 							<a class="dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="true"> <i class="fa fa-shopping-cart"></i> <span>Your
 									Cart</span>
@@ -68,43 +70,11 @@
 							</a>
 							<div class="cart-dropdown">
 								<div class="cart-list">
-									<div class="product-widget">
-										<div class="product-img">
-											<img src="./img/product01.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">
-												<a href="#">product name goes here</a>
-											</h3>
-											<h4 class="product-price">
-												<span class="qty">1x</span>$980.00
-											</h4>
-										</div>
-										<button class="delete">
-											<i class="fa fa-close"></i>
-										</button>
-									</div>
 
-									<div class="product-widget">
-										<div class="product-img">
-											<img src="./img/product02.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">
-												<a href="#">product name goes here</a>
-											</h3>
-											<h4 class="product-price">
-												<span class="qty">3x</span>$980.00
-											</h4>
-										</div>
-										<button class="delete">
-											<i class="fa fa-close"></i>
-										</button>
-									</div>
 								</div>
 								<div class="cart-summary">
-									<small>3 Item(s) selected</small>
-									<h5>SUBTOTAL: $2940.00</h5>
+									<small><span class="qty"></span> Item(s) selected</small>
+									<h5>SUBTOTAL: &#x20B9;<span class="subTotal"> </span></h5>
 								</div>
 								<div class="cart-btns">
 									<a href="#">View Cart</a> <a href="checkout">Checkout <i
@@ -131,3 +101,27 @@
 	<!-- /MAIN HEADER -->
 </header>
 <!-- /HEADER -->
+
+	<noscript type="text/x-template" id='cartList'>
+	<@ 
+_.each(products, function (product){
+
+@>
+<div class="product-widget">
+	<div class="product-img">
+		<img src="./img/<@=nullIfDefaultImage(product.imageLocation[0]) @>" alt="">
+	</div>
+	<div class="product-body">
+		<h3 class="product-name">
+			<a href="#"><@= product.name@></a>
+		</h3>
+		<h4 class="product-price">
+			<span class="qty1"><@=product.quantity@>x</span>&#x20B9;<@=product.price @>
+		</h4>
+	</div>
+	<button class="delete">
+		<i class="fa fa-close"></i>
+	</button>
+</div>
+<@ })@>
+</noscript>

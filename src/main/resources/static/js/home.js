@@ -117,7 +117,7 @@ HOME.BIND_EVENT = function() {
         //alert("Hello");
         //HOME.SEARCH_PRODUCT();
         
-        window.location.href = "store?searchKeyword="+$('#search_string').val();
+        window.location.href = "store?searchKeyword="+$('#search_string').val()+"&category="+$('.input-select').val();
     });
     
     $('[data-toggle="tab"]').click(function (e) {
