@@ -67,7 +67,7 @@
 		<!-- /SECTION -->
 
 		<!-- Section -->
-		<div class="section">
+		<div class="section d-none">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -272,12 +272,12 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number">
+										<input type="number" disabled readonly="readonly" value="1" >
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
 								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button class="add-to-cart-btn" data-json='<@=JSON.stringify(product)@>'><i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
 
 							<ul class="product-btns">

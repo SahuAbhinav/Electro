@@ -37,7 +37,7 @@ STORE.RENDER_NEW_PRODUCT = function(data, type) {
     }));
 
     slickRender($(el));
-     STORE.BIND_EVENT();
+     PAGE_HEADER.BIND_EVENT();
     
 
 
@@ -156,39 +156,7 @@ STORE.SEARCH_PRODUCT = function(searchKeyword, category) {
 
 };
 
-STORE.ADD_TO_CART = function(el) {
 
-let jsonData= el.attr('data-json');
-console.log(jsonData);
-let itemJson = JSON.parse(jsonData);
-itemJson.quantity = 1;
-console.log(itemJson);
-
-let retrievedData =localStorage.getItem('cart') || "[]";
-
-console.log(itemJson);
-
-let carts = JSON.parse(retrievedData);
-
-let oldLength = carts.length;
-
-console.log(carts);
-carts.push(itemJson);
-
-carts =_.uniq(carts, 'id');
-
-if(oldLength == carts.length){
-alert('Item already in cart');
-
-return;
-}
-
-localStorage.setItem("cart", JSON.stringify(carts));
-alert('Item added in cart');
-console.log(localStorage.getItem('cart'));
-PAGE_HEADER.UPDATE_CART_COUNT();
-
-}
 
 STORE.BIND_EVENT = function() {
 
@@ -204,11 +172,7 @@ STORE.BIND_EVENT = function() {
         STORE.LOAD_NEW_PRODUCT(category);
     });
 
-    $('.add-to-cart-btn').click(function(e) {
-        console.log(e);
-        
-        STORE.ADD_TO_CART(($(this)));
-    });
+    
 
 
 }

@@ -27,7 +27,7 @@ HOME.RENDER_NEW_PRODUCT = function(data, type) {
     }));
     
     slickRender($(el));
-
+	PAGE_HEADER.BIND_EVENT();
 
 }
 

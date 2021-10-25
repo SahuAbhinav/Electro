@@ -6,9 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
-
- 		<jsp:include page="commonHeader.jsp"></jsp:include>
+		 <jsp:include page="commonHeader.jsp"></jsp:include>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -172,58 +170,50 @@
 							<h3 class="title">Your Order</h3>
 						</div>
 						<div class="order-summary">
-							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
-							</div>
-							<div class="order-products">
-								<div class="order-col">
-									<div>1x Product Name Goes Here</div>
-									<div>RS. 50,000.00</div>
-								</div>
-								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>RS. 50,000.00</div>
-								</div>
-							</div>
-							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
-							</div>
-							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">1,00,000.00</strong></div>
-							</div>
+						<!-- checkoutDetailTemplate -->
 						</div>
 						<div class="payment-method">
 							<div class="input-radio">
 								<input type="radio" name="payment" id="payment-1">
 								<label for="payment-1">
 									<span></span>
-									Direct Bank Transfer
+									Credit card
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									
+                <div class="col-12">
+                    <div class="d-flex flex-column px-md-5 px-4 mb-4">
+                        <div class="inputWithIcon"> <input class="form-control" type="text" value="5136 1845 5468 3894" readonly="readonly"> <span class=""> </span> </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-column ps-md-5 px-md-0 px-4 mb-4"> <span>Expiration<span class="ps-1">Date</span></span>
+                        <div class="inputWithIcon"> <input type="text" class="form-control" value="05/20" readonly="readonly"> </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-column pe-md-5 px-md-0 px-4 mb-4"> <span>Code CVV</span>
+                        <div class="inputWithIcon"> <input type="password" class="form-control" value="123" readonly="readonly"> </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex flex-column px-md-5 px-4 mb-4"> <span>Name</span>
+                        <div class="inputWithIcon"> <input class="form-control text-uppercase" type="text" value="Shivam Sahu" readonly="readonly"> </div>
+                    </div>
+                </div>
+                
+            
 								</div>
 							</div>
+							
 							<div class="input-radio">
 								<input type="radio" name="payment" id="payment-2">
 								<label for="payment-2">
 									<span></span>
-									Cheque Payment
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
 									Paypal System
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Comming soon</p>
 								</div>
 							</div>
 						</div>
@@ -234,7 +224,7 @@
 								I've read and accept the <a href="#">terms & conditions</a>
 							</label>
 						</div>
-						<a href="#" class="primary-btn order-submit">Place order</a>
+						<button class="primary-btn order-submit">Place order</button>
 					</div>
 					<!-- /Order Details -->
 				</div>
@@ -244,9 +234,34 @@
 		</div>
 		<!-- /SECTION -->
 
+<noscript type="text/x-template" id='checkoutDetailTemplate'>
+<div class="order-col">
+	<div><strong>PRODUCT</strong></div>
+	<div><strong>TOTAL</strong></div>
+</div>
+<div class="order-products">
+<@ 
+_.each(products, function (product){
+@>
+	<div class="order-col">
+		<div><@= product.quantity@> x <@=product.name @></div>
+		<div>&#x20B9; <@= product.price@></div>
+	</div>
+<@}) @>
+	
+</div>
+<div class="order-col">
+	<div>Shiping</div>
+	<div><strong>FREE</strong></div>
+</div>
+<div class="order-col">
+	<div><strong>TOTAL</strong></div>
+	<div><strong class="order-total">&#x20B9;<@=total@></strong></div>
+</div>
+</noscript>
 		<jsp:include page="pageFooter.jsp"></jsp:include>
 
 		<jsp:include page="commonFooter.jsp"></jsp:include>
-
+		<script src="js/checkout.js"></script>
 	</body>
 </html>

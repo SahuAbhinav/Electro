@@ -5,10 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-		<title>Electro - HTML Ecommerce Template</title>
-
- 		<jsp:include page="commonHeader.jsp"></jsp:include>
+		<jsp:include page="commonHeader.jsp"></jsp:include>
     </head>
 	<body>
 		<jsp:include page="pageHeader.jsp"></jsp:include>

@@ -20,6 +20,7 @@ PRODUCT.RENDER_PRODUCT = function(data) {
     }));
 
    // slickRender($(el));
+   PAGE_HEADER.BIND_EVENT();
 
 
 }
